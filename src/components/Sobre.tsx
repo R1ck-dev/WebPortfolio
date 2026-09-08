@@ -1,12 +1,12 @@
-import { conteudo } from "@/content";
+import { getConteudo, getSecao } from "@/content/servidor";
 import Reveal from "./Reveal";
 import { Numero, Secao } from "./ui";
 
-const { sobre } = conteudo;
+export default async function Sobre() {
+  const { sobre } = await getConteudo();
 
-export default function Sobre() {
   return (
-    <Secao id="sobre" numero="01" titulo="Sobre">
+    <Secao secao={await getSecao("sobre")}>
       <div className="max-w-2xl space-y-6">
         {sobre.paragrafos.map((paragrafo, i) => (
           <Reveal key={i} delay={i * 80}>

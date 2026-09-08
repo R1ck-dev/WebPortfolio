@@ -1,8 +1,8 @@
 // Forma do conteúdo do portfólio, separada do texto em si.
 //
-// A copy vive num arquivo por idioma (hoje só `pt.ts`). Para ligar o inglês, crie um `en.ts`
-// que satisfaça `Conteudo` e registre em `index.ts` — o TypeScript aponta o que faltou traduzir,
-// que é o jeito de garantir a regra do brief: nada de metade traduzida.
+// A copy vive num arquivo por idioma: `pt.ts` é a versão canônica e `en.ts` a tradução. Ambos
+// satisfazem `Conteudo`, então o TypeScript aponta qualquer campo que falte de um lado — é o que
+// garante a regra do brief: nada de metade traduzida.
 
 import type { StaticImageData } from "next/image";
 
@@ -15,8 +15,6 @@ export type Print = {
   alt: string;
   /** Legenda visível abaixo do print. Aponta a prova, não descreve o layout. */
   legenda: string;
-  /** Rótulo curto usado quando o print faz parte de um par alternável. */
-  aba?: string;
 };
 
 /** Estado do demo. Três dos quatro projetos ainda não têm deploy — isso é dito, não escondido. */
@@ -30,7 +28,7 @@ export type Projeto = {
   subtitulo: string;
   contexto: string;
   periodo: string;
-  /** O carro-chefe ganha estudo de caso e mais espaço na página. */
+  /** O carro-chefe ganha estudo de caso, mais espaço e mais telas. */
   carroChefe?: boolean;
   /** Tom dominante dos prints — decide a moldura para que o claro e o escuro não briguem. */
   tom: "claro" | "escuro";
@@ -40,21 +38,32 @@ export type Projeto = {
   estudoDeCaso?: { rotulo: string; texto: string }[];
   /** Fatos defensáveis numa entrevista. Cada um deve poder ser conferido na tela ou no código. */
   fatos: { titulo: string; texto: string }[];
+  /**
+   * Os mesmos três números em todos os projetos, na mesma ordem: superfície da API, camada de
+   * aplicação, domínio persistido. Padronizar é o que torna os quatro comparáveis de relance —
+   * número exclusivo de um projeto vira frase em `fatos`, não uma quarta linha só aqui.
+   *
+   * Contados no repositório, com regra reproduzível (medido em 08/09/2026):
+   *   endpoints  = @Get/@Post/@Put/@Delete/@PatchMapping dentro de `**\/controller/`
+   *   casos de uso = arquivos `*UseCase.java` em `application/**\/usecase/`
+   *   entidades  = arquivos com `@Entity` em coluna 1
+   * Ao mexer num projeto, recontar — os valores anteriores tinham envelhecido em silêncio.
+   */
   numeros: { valor: string; rotulo: string }[];
   stack: string[];
   /**
-   * Como os prints se apresentam:
-   * - `unico`    — uma imagem só;
-   * - `tabs`     — duas imagens de mesma proporção onde alternar é a própria prova (mestre × jogador);
-   * - `duo`      — um par desktop + celular lado a lado, que não alterna porque a proporção muda demais;
-   * - `galeria`  — uma imagem grande e as demais menores embaixo, para o carro-chefe.
+   * Telas em paisagem, todas na mesma proporção (2,34:1). A primeira abre a galeria em largura
+   * cheia e as demais caem numa grade de duas colunas — com um número ímpar, a última ocupa a
+   * linha inteira. É a regra única de layout: nenhuma exceção por projeto.
    */
-  apresentacao: "unico" | "tabs" | "duo" | "galeria";
   prints: Print[];
+  /**
+   * Telas de celular, em retrato. Ficam numa faixa só delas, nunca dividindo linha com uma
+   * paisagem: misturar 2,34:1 com 1:1,93 na mesma grade é o que quebrava o ritmo da página.
+   */
+  mobile?: Print[];
   repo: string;
   demo: Demo;
-  /** Âncora opcional para uma seção que aprofunda este projeto. */
-  aprofundar?: { href: string; rotulo: string };
 };
 
 export type Marco = {
@@ -103,6 +112,18 @@ export type Conteudo = {
     temaClaro: string;
     temaEscuro: string;
     alternarTema: string;
+    /**
+     * Rótulo acessível do seletor de idioma, escrito no idioma da página que o exibe: na página
+     * em português ele diz "ver em inglês". O texto curto do botão ("EN", "PT") não vem daqui —
+     * é o mesmo nos dois idiomas e mora em `index.ts`.
+     */
+    trocarIdioma: string;
+    /** Legendas do visualizador de imagem em tela cheia. */
+    ampliar: string;
+    fecharImagem: string;
+    imagemAnterior: string;
+    proximaImagem: string;
+    telasDoCelular: string;
   };
   sobre: {
     paragrafos: string[];
@@ -111,20 +132,6 @@ export type Conteudo = {
   projetos: {
     intro: string;
     lista: Projeto[];
-  };
-  /** A demonstração da tese: uma regra de negócio que o visitante move e vê recalcular. */
-  regra: {
-    titulo: string;
-    intro: string;
-    origem: string;
-    campoValor: string;
-    campoDias: string;
-    /** Cada preset é um caso documentado: o valor e os dias que aparecem numa tela real. */
-    presets: { rotulo: string; valor: number; dias: number; nota: string }[];
-    linhas: { base: string; multa: string; mora: string; total: string };
-    teto: string;
-    tetoAtivo: string;
-    rodape: string;
   };
   stack: {
     intro: string;

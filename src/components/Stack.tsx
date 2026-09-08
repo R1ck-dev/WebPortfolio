@@ -1,12 +1,12 @@
-import { conteudo } from "@/content";
+import { getConteudo, getSecao } from "@/content/servidor";
 import Reveal from "./Reveal";
 import { Secao } from "./ui";
 
-const { stack } = conteudo;
+export default async function Stack() {
+  const { stack } = await getConteudo();
 
-export default function Stack() {
   return (
-    <Secao id="stack" numero="04" titulo="Stack">
+    <Secao secao={await getSecao("stack")}>
       <p className="max-w-2xl text-base leading-relaxed text-ink-soft text-pretty">{stack.intro}</p>
 
       <dl className="mt-12 space-y-px overflow-hidden rounded-sm border border-rule bg-rule">

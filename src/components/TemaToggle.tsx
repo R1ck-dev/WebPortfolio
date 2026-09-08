@@ -1,10 +1,7 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
-import { conteudo } from "@/content";
 import { IconeLua, IconeSol } from "./ui";
-
-const { ui } = conteudo;
 
 /* O tema mora na classe do <html>, aplicada pelo script inline do layout antes da primeira
    pintura. Ele é, para o React, um sistema externo: lemos por assinatura em vez de espelhar
@@ -22,7 +19,7 @@ const lerNoCliente = () => document.documentElement.classList.contains("dark");
 // os ícones são resolvidos por CSS, então não há piscada entre o HTML e a hidratação.
 const lerNoServidor = () => false;
 
-export default function TemaToggle() {
+export default function TemaToggle({ claro, escuro: rotuloEscuro }: { claro: string; escuro: string }) {
   const escuro = useSyncExternalStore(assinar, lerNoCliente, lerNoServidor);
 
   function alternar() {
@@ -43,7 +40,7 @@ export default function TemaToggle() {
     window.setTimeout(() => raiz.classList.remove("trocando-tema"), 360);
   }
 
-  const rotulo = escuro ? ui.temaClaro : ui.temaEscuro;
+  const rotulo = escuro ? claro : rotuloEscuro;
 
   return (
     <button

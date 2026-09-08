@@ -24,9 +24,38 @@
   --color-accent-soft: #c96a3f;
   --color-moss: #37584a;
 
+  /* Cores do visualizador em tela cheia. Não entram na troca de tema de propósito: a camada
+     escura é a convenção de qualquer visor de imagem, e é o que faz o print aparecer nos dois
+     temas. Usar --color-ink aqui inverteria o overlay junto com o tema. */
+  --color-overlay: #0b0908;
+  --color-overlay-ink: #ece5d8;
+
   --font-display: var(--font-instrument-serif), Georgia, "Times New Roman", serif;
   --font-sans: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-plex-mono), ui-monospace, "SFMono-Regular", monospace;
+
+  /* Escala tipográfica fluida: o máximo de cada passo é o padrão do Tailwind, então o desktop
+     fica igual — o que muda é o caminho até lá, contínuo em vez de saltar por breakpoint. */
+  --text-xs: clamp(0.72rem, 0.70rem + 0.10vw, 0.75rem);
+  --text-xs--line-height: 1.45;
+  --text-sm: clamp(0.82rem, 0.79rem + 0.15vw, 0.875rem);
+  --text-sm--line-height: 1.55;
+  --text-base: clamp(0.94rem, 0.91rem + 0.16vw, 1rem);
+  --text-base--line-height: 1.6;
+  --text-lg: clamp(1.02rem, 0.97rem + 0.24vw, 1.125rem);
+  --text-lg--line-height: 1.6;
+  --text-xl: clamp(1.12rem, 1.05rem + 0.34vw, 1.25rem);
+  --text-xl--line-height: 1.5;
+  --text-2xl: clamp(1.28rem, 1.15rem + 0.62vw, 1.5rem);
+  --text-2xl--line-height: 1.35;
+  --text-3xl: clamp(1.5rem, 1.28rem + 1.05vw, 1.875rem);
+  --text-3xl--line-height: 1.2;
+  --text-4xl: clamp(1.75rem, 1.45rem + 1.45vw, 2.25rem);
+  --text-4xl--line-height: 1.12;
+  --text-5xl: clamp(2.1rem, 1.6rem + 2.4vw, 3rem);
+  --text-5xl--line-height: 1.05;
+  --text-6xl: clamp(2.4rem, 1.7rem + 3.4vw, 3.75rem);
+  --text-6xl--line-height: 1;
 
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -143,19 +172,15 @@
   }
 }
 
-/* Usado quando o teto da mora entra em ação: o valor "trava" em vez de só mudar. */
-@keyframes travar {
-  0% {
-    transform: translateX(0);
+/* Entrada da imagem no visualizador em tela cheia. */
+@keyframes surgir {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
   }
-  35% {
-    transform: translateX(-3px);
-  }
-  70% {
-    transform: translateX(1.5px);
-  }
-  100% {
-    transform: translateX(0);
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
@@ -165,10 +190,6 @@
 
 .drift {
   animation: drift 14s ease-in-out infinite;
-}
-
-.travar {
-  animation: travar 0.42s var(--ease-out-soft);
 }
 
 /* Revelação no scroll. Só esconde quando há JavaScript (classe .js no <html>): sem JS,
@@ -199,51 +220,6 @@
   border-color: color-mix(in srgb, var(--color-rule) 70%, #eef1f6);
 }
 
-/* Régua da seção "A regra". O input nativo continua sendo o controle — teclado, leitor de
-   tela e toque saem de graça —, só a pele é trocada. */
-.regua-slider {
-  -webkit-appearance: none;
-  appearance: none;
-  display: block;
-  width: 100%;
-  height: 2px;
-  border-radius: 999px;
-  background: var(--color-rule);
-  cursor: ew-resize;
-}
-
-.regua-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 18px;
-  height: 18px;
-  border-radius: 999px;
-  background: var(--color-accent);
-  border: 3px solid var(--color-paper-raised);
-  box-shadow: 0 0 0 1px var(--color-accent);
-  transition: transform 0.18s var(--ease-out-soft);
-}
-
-.regua-slider::-moz-range-thumb {
-  width: 18px;
-  height: 18px;
-  border-radius: 999px;
-  background: var(--color-accent);
-  border: 3px solid var(--color-paper-raised);
-  box-shadow: 0 0 0 1px var(--color-accent);
-  transition: transform 0.18s var(--ease-out-soft);
-}
-
-.regua-slider:hover::-webkit-slider-thumb,
-.regua-slider:focus-visible::-webkit-slider-thumb {
-  transform: scale(1.15);
-}
-
-.regua-slider:hover::-moz-range-thumb,
-.regua-slider:focus-visible::-moz-range-thumb {
-  transform: scale(1.15);
-}
-
 /* Troca de tema: transição curta, e só nas cores. Sem isso o clique no seletor
    é um corte seco; com transição em tudo, a página inteira treme. */
 .trocando-tema,
@@ -265,7 +241,7 @@
 
   .rise,
   .drift,
-  .travar,
+  .surgir,
   [class*="animate-"] {
     animation: none !important;
   }

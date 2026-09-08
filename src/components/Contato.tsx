@@ -1,19 +1,24 @@
-import { conteudo } from "@/content";
+import type { Conteudo } from "@/content";
+import { getConteudo, getSecao } from "@/content/servidor";
 import Reveal from "./Reveal";
 import { IconeDocumento, IconeEmail, IconeGitHub, IconeLinkedIn, Secao, Seta } from "./ui";
 
-const { contato, perfil } = conteudo;
+/** Cada canal do conteúdo diz só o seu tipo; o destino e o ícone saem daqui. */
+function destinosDe(perfil: Conteudo["perfil"]) {
+  return {
+    email: { href: `mailto:${perfil.email}`, Icone: IconeEmail, externo: false, baixar: false },
+    linkedin: { href: perfil.linkedin, Icone: IconeLinkedIn, externo: true, baixar: false },
+    github: { href: perfil.github, Icone: IconeGitHub, externo: true, baixar: false },
+    curriculo: { href: perfil.curriculoPdf, Icone: IconeDocumento, externo: false, baixar: true },
+  } as const;
+}
 
-const destinos = {
-  email: { href: `mailto:${perfil.email}`, Icone: IconeEmail, externo: false, baixar: false },
-  linkedin: { href: perfil.linkedin, Icone: IconeLinkedIn, externo: true, baixar: false },
-  github: { href: perfil.github, Icone: IconeGitHub, externo: true, baixar: false },
-  curriculo: { href: perfil.curriculoPdf, Icone: IconeDocumento, externo: false, baixar: true },
-} as const;
+export default async function Contato() {
+  const { contato, perfil } = await getConteudo();
+  const destinos = destinosDe(perfil);
 
-export default function Contato() {
   return (
-    <Secao id="contato" numero="06" titulo="Contato">
+    <Secao secao={await getSecao("contato")}>
       <Reveal>
         <p className="max-w-3xl font-display text-3xl leading-tight text-ink text-balance md:text-[2.75rem]">
           {contato.chamada}

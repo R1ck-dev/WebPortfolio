@@ -2,17 +2,31 @@
 //
 // Fonte da verdade: CurriculoVsCode/curriculo.html, o vault Obsidian (05 - SVSA, 10 - Sanesoluti,
 // 04 - IC - CodeInsights, 02 - Projetos) e docs/design/brief-webportfolio.md.
-// Nada aqui é estimado: todo número tem origem numa tela, num repositório ou no currículo.
+// Nada aqui é estimado: todo número tem origem numa tela, num repositório ou no currículo, e toda
+// legenda descreve o que está visível no print que ela acompanha.
 
 import type { Conteudo } from "./tipos";
 
+import bloodcrownCalculadora from "@/assets/prints/bloodcrown/calculadora.webp";
+import bloodcrownInventario from "@/assets/prints/bloodcrown/inventario.webp";
 import bloodcrownJogador from "@/assets/prints/bloodcrown/jogador.webp";
 import bloodcrownMestre from "@/assets/prints/bloodcrown/mestre.webp";
+import codeinsightsCoorte from "@/assets/prints/codeinsights/coorte.webp";
 import codeinsightsCruzamento from "@/assets/prints/codeinsights/cruzamento.webp";
 import codeinsightsDashboard from "@/assets/prints/codeinsights/dashboard.webp";
+import codeinsightsDesafio from "@/assets/prints/codeinsights/desafio.webp";
+import codeinsightsPublico from "@/assets/prints/codeinsights/publico.webp";
 import codeinsightsQualidade from "@/assets/prints/codeinsights/qualidade.webp";
+import escolaAlunoFinanceiro from "@/assets/prints/escola/aluno-financeiro.webp";
+import escolaAlunoInicio from "@/assets/prints/escola/aluno-inicio.webp";
+import escolaAlunoPix from "@/assets/prints/escola/aluno-pix.webp";
+import escolaBoletim from "@/assets/prints/escola/boletim.webp";
+import escolaChamada from "@/assets/prints/escola/chamada.webp";
 import escolaFinanceiro from "@/assets/prints/escola/financeiro.webp";
-import escolaPix from "@/assets/prints/escola/pix.webp";
+import escolaMatriculas from "@/assets/prints/escola/matriculas.webp";
+import ifconectaClube from "@/assets/prints/ifconecta/clube.webp";
+import ifconectaComunicado from "@/assets/prints/ifconecta/comunicado.webp";
+import ifconectaModeracao from "@/assets/prints/ifconecta/moderacao.webp";
 import ifconectaTimeline from "@/assets/prints/ifconecta/timeline.webp";
 
 const pt: Conteudo = {
@@ -30,8 +44,8 @@ const pt: Conteudo = {
     email: "henriquemarangoni.inacio1108@gmail.com",
     github: "https://github.com/R1ck-dev",
     githubLabel: "github.com/R1ck-dev",
-    linkedin: "https://linkedin.com/in/henriquemarangoni",
-    linkedinLabel: "linkedin.com/in/henriquemarangoni",
+    linkedin: "https://www.linkedin.com/in/henrique-marangoni-484845239/",
+    linkedinLabel: "linkedin.com/in/henrique-marangoni-484845239",
     curriculoPdf: "/curriculo.pdf",
   },
 
@@ -49,6 +63,12 @@ const pt: Conteudo = {
     temaClaro: "Tema claro",
     temaEscuro: "Tema escuro",
     alternarTema: "Alternar tema",
+    trocarIdioma: "Ver este portfólio em inglês",
+    ampliar: "Ampliar",
+    fecharImagem: "Fechar imagem",
+    imagemAnterior: "Imagem anterior",
+    proximaImagem: "Próxima imagem",
+    telasDoCelular: "No celular, o aluno",
   },
 
   sobre: {
@@ -67,7 +87,7 @@ const pt: Conteudo = {
 
   projetos: {
     intro:
-      "Quatro sistemas, quase a mesma stack — Java 21, Spring Boot 4, React, arquitetura hexagonal. A escolha repetida é de propósito. O que muda de um para o outro é o problema, e é por ele que vale começar a leitura.",
+      "Quatro sistemas, quase a mesma stack — Java 21, Spring Boot 4, React, arquitetura hexagonal. A escolha repetida é de propósito. O que muda de um para o outro é o problema, e é por ele que vale começar a leitura. Todas as telas abaixo são dos sistemas rodando, com dado de seed; clique em qualquer uma para ampliar.",
     lista: [
       {
         slug: "codeinsights",
@@ -93,19 +113,19 @@ const pt: Conteudo = {
           {
             rotulo: "O resultado",
             texto:
-              "Um heatmap de densidade autonomia × complexidade sobre uma coorte real: 9 participantes, 86 resoluções, 100% delas com métrica calculada. É a curva de amadurecimento saindo de dado, e não de impressão.",
+              "Um heatmap de densidade autonomia × complexidade sobre uma coorte real: 9 participantes, 86 resoluções, 100% delas com métrica calculada, coletadas entre março e agosto de 2026. É a curva de amadurecimento saindo de dado, e não de impressão.",
           },
         ],
         fatos: [
           {
             titulo: "Consentimento é parte da tese, não burocracia",
             texto:
-              "O painel de pesquisa mostra o recorte na cara: 9 autorizaram, 2 recusaram, 2 não responderam. Quem recusa sai da amostra — e a recusa aparece no número em vez de sumir dele.",
+              "O painel mostra o recorte na cara: 9 autorizaram, 2 recusaram, 2 não responderam — e 26 resoluções ficaram fora da coorte por isso. A própria tela avisa que tudo o mais nela descreve apenas quem autorizou.",
           },
           {
             titulo: "O limite do motor é declarado, não escondido",
             texto:
-              "A análise estática cobre Java e C. Em qualquer outra linguagem a métrica simplesmente não é calculada, e a tela diz isso. Um filtro de confiança do motor deixa separar o que foi medido com segurança do que foi estimado.",
+              "A análise estática cobre Java e C, e a distribuição diz quanto é de cada um: 66 resoluções em Java, 20 em C. A confiança do motor entra como eixo próprio — 64 alta, 22 média — para separar o que foi medido do que foi estimado.",
           },
           {
             titulo: "Controle de acesso por papel, verificado",
@@ -114,13 +134,11 @@ const pt: Conteudo = {
           },
         ],
         numeros: [
-          { valor: "9", rotulo: "participantes na coorte" },
-          { valor: "86", rotulo: "resoluções analisadas" },
-          { valor: "100%", rotulo: "com métrica calculada" },
-          { valor: "3", rotulo: "motores de métrica" },
+          { valor: "45", rotulo: "endpoints REST" },
+          { valor: "47", rotulo: "casos de uso" },
+          { valor: "7", rotulo: "entidades JPA" },
         ],
         stack: ["Java 21", "Spring Boot 4", "Hexagonal", "PostgreSQL", "React 19", "TypeScript"],
-        apresentacao: "galeria",
         prints: [
           {
             imagem: codeinsightsDashboard,
@@ -130,21 +148,40 @@ const pt: Conteudo = {
           },
           {
             imagem: codeinsightsCruzamento,
-            alt: "Tela de pesquisa do CodeInsights com heatmap de densidade cruzando nível de autonomia e complexidade, ao lado de uma distribuição empilhada.",
+            alt: "Tela de pesquisa do CodeInsights com heatmap de densidade cruzando nível de autonomia e complexidade, ao lado de uma distribuição empilhada por nível.",
             legenda:
-              "O cruzamento autonomia × complexidade, com filtro de confiança do motor. É a figura que a pesquisa precisava e que motivou a plataforma existir.",
+              "O cruzamento autonomia × complexidade, com filtro de confiança do motor. É a figura que a pesquisa precisava — e o motivo de a plataforma existir.",
           },
           {
             imagem: codeinsightsQualidade,
-            alt: "Tela de qualidade dos dados do CodeInsights: 9 participantes, 86 resoluções, 100% com métrica, e o recorte de consentimento com 9 autorizações, 2 recusas e 2 sem resposta.",
+            alt: "Tela de qualidade dos dados do CodeInsights: 9 participantes, 86 resoluções, 86 com métrica, e o recorte de consentimento com 9 autorizações, 2 recusas, 2 sem resposta e 26 resoluções fora da coorte.",
             legenda:
-              "Qualidade dos dados. A recusa de consentimento é um número visível na tela, do lado da autorização.",
+              "Qualidade dos dados. A recusa de consentimento é um número visível ao lado da autorização, e a tela declara que todo o resto descreve apenas quem autorizou.",
+          },
+          {
+            imagem: codeinsightsDesafio,
+            alt: "Detalhe de um desafio no CodeInsights, com o enunciado e as resoluções já submetidas para ele.",
+            legenda:
+              "O desafio por dentro: enunciado de um lado, as resoluções submetidas do outro. É daqui que sai cada ponto da carta.",
+          },
+          {
+            imagem: codeinsightsPublico,
+            alt: "Portfólio público de um aluno no CodeInsights, a visão que um terceiro tem ao abrir o link do perfil.",
+            legenda:
+              "O portfólio público: o que um terceiro vê ao abrir o link do aluno. É a metade “ferramenta” da plataforma.",
+          },
+          {
+            imagem: codeinsightsCoorte,
+            alt: "Tabela de dado bruto da coorte no CodeInsights, com as resoluções e as métricas de cada participante.",
+            legenda:
+              "O dado bruto por trás dos gráficos. A pesquisa precisa de gráfico para ler e de tabela para conferir — a tela entrega os dois.",
           },
         ],
         repo: "https://github.com/R1ck-dev/Code-Insights",
         demo: {
           situacao: "local",
-          motivo: "Roda localmente. Envolve dado de pesquisa com consentimento e submissão ao Comitê de Ética do IFSP, então não há instância pública.",
+          motivo:
+            "Roda localmente. Envolve dado de pesquisa com consentimento e submissão ao Comitê de Ética do IFSP, então não há instância pública.",
         },
       },
 
@@ -166,7 +203,7 @@ const pt: Conteudo = {
           {
             titulo: "Juros e multa calculados, não digitados",
             texto:
-              "R$ 85,00 vencidos há 18 dias viram R$ 104,70 — 85 + 2% de multa + R$ 1,00 por dia de mora. E o teto de 30 dias funciona: uma mensalidade 51 dias vencida para em R$ 397,20, porque a mora somou 30 e não 51.",
+              "R$ 85,00 vencidos há 18 dias viram R$ 104,70 — 85 + 2% de multa + R$ 1,00 por dia de mora, com a regra escrita no rodapé da própria tabela. E o teto de 30 dias funciona: uma mensalidade de R$ 360,00 vencida em julho aparece para o aluno a R$ 397,20, porque a mora somou 30 e não 51.",
           },
           {
             titulo: "Aprovação é uma conjunção, e a tela prova",
@@ -180,26 +217,53 @@ const pt: Conteudo = {
           },
         ],
         numeros: [
-          { valor: "R$ 104,70", rotulo: "calculados a partir de R$ 85,00" },
-          { valor: "30 d", rotulo: "teto da mora, mesmo aos 51 dias" },
-          { valor: "3", rotulo: "interfaces desenhadas por papel" },
+          { valor: "53", rotulo: "endpoints REST" },
+          { valor: "52", rotulo: "casos de uso" },
+          { valor: "14", rotulo: "entidades JPA" },
         ],
         stack: ["Java 21", "Spring Boot 4", "Hexagonal", "PostgreSQL", "React 19", "TypeScript"],
-        apresentacao: "duo",
         prints: [
           {
             imagem: escolaFinanceiro,
             alt: "Tela financeira da gestão listando mensalidades atrasadas, com R$ 85,00 atualizados para R$ 104,70 e a regra de multa e mora escrita no rodapé da tabela.",
             legenda:
-              "A régua da secretaria. O valor atualizado vem ao lado do original, com “há 18 dias · inclui multa + mora”, e a regra inteira escrita no rodapé da tabela.",
-            aba: "Secretaria",
+              "A régua da secretaria. O valor atualizado vem ao lado do original, com “há 18 dias · inclui multa + mora”, e a regra inteira escrita no rodapé: multa de 2% + mora de R$ 1/dia, teto de 30 dias.",
           },
           {
-            imagem: escolaPix,
-            alt: "Tela de pagamento por PIX na largura de um celular, com QR Code, o BR Code completo em texto e o botão de copiar código.",
+            imagem: escolaBoletim,
+            alt: "Boletim da turma com quatro situações diferentes lado a lado, incluindo dois alunos reprovados por motivos distintos: um por faltas e outro por média.",
             legenda:
-              "O outro lado do mesmo ciclo, em largura de celular: QR Code e BR Code completo, na interface mobile-first do aluno.",
-            aba: "Aluno",
+              "Os quatro estados na mesma tabela — e as duas causas de reprovação separadas: uma por faltas com média alta, outra por média com presença em dia.",
+          },
+          {
+            imagem: escolaMatriculas,
+            alt: "Fila de aprovação de matrículas com três solicitantes, cada um com os botões Rejeitar, Lista de espera e Aprovar, e uma aluna marcada como menor com o responsável vinculado.",
+            legenda:
+              "A decisão de três vias que nasceu da conversa com o cliente. Beatriz Lima traz o selo “menor” com o responsável vinculado — o sistema não deixa passar sem ele.",
+          },
+          {
+            imagem: escolaChamada,
+            alt: "Tela de chamada com seis alunos, cinco presentes e um ausente, e a instrução de que todos começam presentes.",
+            legenda:
+              "A chamada que alimenta a reprovação por falta. “Todos começam presentes; toque em quem faltou” — e a data só anda pelos dias em que a turma tem aula.",
+          },
+        ],
+        mobile: [
+          {
+            imagem: escolaAlunoInicio,
+            alt: "Tela inicial do aluno em largura de celular, com card de mensalidades e desempenho e navegação inferior.",
+            legenda: "Início do aluno, com a navegação na parte de baixo.",
+          },
+          {
+            imagem: escolaAlunoFinanceiro,
+            alt: "Mensalidades do aluno no celular: agosto em aberto a R$ 360,00, julho atrasada a R$ 397,20 com a observação de multa sobre o original de R$ 360,00, e junho paga.",
+            legenda:
+              "Três estados de uma vez — e julho a R$ 397,20 “com multa · original R$ 360,00”: o teto de 30 dias visto por quem paga.",
+          },
+          {
+            imagem: escolaAlunoPix,
+            alt: "Pagamento por PIX no celular, com QR Code, o BR Code completo em texto e o botão de copiar código.",
+            legenda: "PIX dinâmico, com QR Code e BR Code completo.",
           },
         ],
         repo: "https://github.com/R1ck-dev/Escola-Idiomas",
@@ -207,7 +271,6 @@ const pt: Conteudo = {
           situacao: "local",
           motivo: "Roda localmente, com seed determinístico. Deploy ainda não publicado.",
         },
-        aprofundar: { href: "#regra", rotulo: "Mexer nessa regra" },
       },
 
       {
@@ -223,7 +286,12 @@ const pt: Conteudo = {
           {
             titulo: "Estado derivado, com procedência visível",
             texto:
-              "O Cetro Coroado dá +2 de Carisma e o atributo aparece como 9, com o rótulo acessível dizendo “valor 9 (base 7 + buff 2)”. Desequipar desfaz. Não é um número gravado no banco: é uma conta que o sistema refaz e mostra de onde veio.",
+              "O Cetro Coroado dá +2 de Carisma e o atributo aparece como 9, com o anel aceso e o rótulo acessível dizendo “valor 9 (base 7 + buff 2)”. Desequipar desfaz. Não é um número gravado no banco: é uma conta que o sistema refaz e mostra de onde veio.",
+          },
+          {
+            titulo: "O bônus do item volta na conta do dano",
+            texto:
+              "O Manto de Veludo Negro dá +4 de Armadura, e a calculadora desconta a resistência antes de dividir: 30 de dano físico com divisor 2 resulta em −13, não em −15. O mesmo item que muda o atributo muda o dano, porque os dois saem da mesma origem.",
           },
           {
             titulo: "Posse validada no backend, não na tela",
@@ -236,32 +304,41 @@ const pt: Conteudo = {
               "O jogador não vê o painel do mestre nem a barra de cenas. A barra some do documento — não é um botão escondido por CSS que um inspetor de elementos devolveria.",
           },
           {
-            titulo: "A rolagem mostra os dados, não só o total",
+            titulo: "Arrastar é efêmero; soltar é que grava",
             texto:
-              "Sai [6, 7, 8] + 5 = 26, dado por dado, porque quem joga confere. E a escala do tabuleiro é declarada: 1 célula = 1,5 m = 48 px, com a régua medindo em metros.",
+              "Token em movimento e régua de medição viajam por STOMP e não encostam no banco — a régua nem existe depois que apaga. Só o soltar persiste a posição, por REST. Cada evento carrega quem o emitiu, para o cliente ignorar o próprio eco, e a assinatura do tópico da mesa é validada no SUBSCRIBE, não na tela.",
           },
         ],
         numeros: [
-          { valor: "75", rotulo: "endpoints REST" },
-          { valor: "14", rotulo: "entidades JPA" },
-          { valor: "0 s", rotulo: "de espera entre jogadores" },
+          { valor: "57", rotulo: "endpoints REST" },
+          { valor: "57", rotulo: "casos de uso" },
+          { valor: "13", rotulo: "entidades JPA" },
         ],
         stack: ["Java 21", "Spring Boot 4", "WebSocket/STOMP", "MySQL 8", "React 19", "Konva"],
-        apresentacao: "tabs",
         prints: [
           {
-            imagem: bloodcrownMestre,
-            alt: "Mesa do BloodCrown na visão do mestre: tabuleiro com tokens, retratos com barras de vida, painel do mestre e barra de cenas visíveis.",
+            imagem: bloodcrownInventario,
+            alt: "Ficha do BloodCrown com o inventário aberto: três itens equipados com os bônus que concedem, e o atributo Carisma marcando 9 com um anel aceso.",
             legenda:
-              "A mesma mesa, na visão do mestre: painel do mestre à direita e barra de cenas embaixo.",
-            aba: "Mestre",
+              "Os três itens equipados com o bônus de cada um — e, do outro lado da mesma tela, o Carisma em 9 com o anel aceso. A origem e o efeito no mesmo quadro.",
+          },
+          {
+            imagem: bloodcrownMestre,
+            alt: "Mesa do BloodCrown na visão do mestre: tabuleiro com tokens sobre a planta de uma cripta, painel do mestre à direita e barra de cenas abaixo.",
+            legenda:
+              "A mesa como o mestre vê: painel do mestre à direita, barra de cenas embaixo, selo AO VIVO no topo.",
           },
           {
             imagem: bloodcrownJogador,
-            alt: "A mesma mesa do BloodCrown na visão do jogador: o tabuleiro e os retratos continuam, mas o painel do mestre e a barra de cenas não aparecem.",
+            alt: "A mesma mesa do BloodCrown na visão do jogador: o tabuleiro e os tokens continuam, mas o painel do mestre e a barra de cenas não aparecem.",
             legenda:
-              "A mesma mesa, na visão do jogador. O painel do mestre e a barra de cenas não estão escondidos — não foram enviados.",
-            aba: "Jogador",
+              "A mesma mesa, como o jogador vê. O painel do mestre e a barra de cenas não estão escondidos — não foram enviados.",
+          },
+          {
+            imagem: bloodcrownCalculadora,
+            alt: "Calculadora de dano do BloodCrown com 30 de dano físico, divisor 2 e resultado menos 13, ao lado do inventário com os itens equipados e seus bônus.",
+            legenda:
+              "30 de dano físico, divisor 2, resistência descontada antes da divisão: −13. Ao lado, os itens equipados que produziram essa resistência.",
           },
         ],
         repo: "https://github.com/R1ck-dev/BloodCrown-CharacterSheet",
@@ -290,7 +367,12 @@ const pt: Conteudo = {
           {
             titulo: "Alcance de comunicado é regra de domínio",
             texto:
-              "Um professor só dispara para turma que ele leciona ou clube que ele lidera. O segundo seletor do formulário é populado a partir disso — não é uma lista fixa filtrada na tela depois.",
+              "O formulário só revela o campo Turma depois que o alcance é escolhido, e a lista vem do que aquele professor realmente leciona ou lidera — comunidade, curso, turma que leciona ou clube que lidera. Não é uma lista fixa filtrada na tela depois.",
+          },
+          {
+            titulo: "Fluxo de moderação de verdade",
+            texto:
+              "Turma sugerida por aluno entra numa fila de aprovação e só vai ao ar depois que um professor aceita. A tela é enxuta, mas é o fluxo inteiro: sugerir, revisar, aprovar ou rejeitar.",
           },
           {
             titulo: "Post anônimo, com autor no banco",
@@ -301,16 +383,33 @@ const pt: Conteudo = {
         numeros: [
           { valor: "44", rotulo: "endpoints REST" },
           { valor: "44", rotulo: "casos de uso" },
-          { valor: "4", rotulo: "papéis de acesso" },
+          { valor: "13", rotulo: "entidades JPA" },
         ],
         stack: ["Java 21", "Spring Boot 4", "Hexagonal", "PostgreSQL", "React 18", "Vite"],
-        apresentacao: "unico",
         prints: [
           {
             imagem: ifconectaTimeline,
             alt: "Feed do IFConecta com publicações do campus, votos, comentários e uma publicação anônima entre as identificadas.",
             legenda:
               "O feed do campus. Um post anônimo entre os identificados, com voto e comentário no mesmo lugar.",
+          },
+          {
+            imagem: ifconectaComunicado,
+            alt: "Modal de envio de comunicado no IFConecta, com o seletor de alcance e o campo de turma que só aparece depois de escolher o alcance.",
+            legenda:
+              "O comunicado por dentro: o campo Turma só aparece depois do alcance, e é populado com o que aquele professor leciona.",
+          },
+          {
+            imagem: ifconectaClube,
+            alt: "Detalhe de um clube no IFConecta, com as abas Posts, Membros, Solicitações e Sobre, e o selo de Líder no cabeçalho.",
+            legenda:
+              "O clube por dentro. A aba Solicitações e o selo “Líder” só existem para quem lidera aquele clube.",
+          },
+          {
+            imagem: ifconectaModeracao,
+            alt: "Tela de aprovação de turma sugerida por aluno, com as opções de aprovar ou rejeitar para o professor.",
+            legenda:
+              "A fila de moderação: a turma sugerida pelo aluno espera o professor antes de existir para o resto do campus.",
           },
         ],
         repo: "https://github.com/R1ck-dev/IFConecta",
@@ -320,29 +419,6 @@ const pt: Conteudo = {
         },
       },
     ],
-  },
-
-  regra: {
-    titulo: "Uma regra de negócio, por dentro",
-    intro:
-      "É fácil escrever que a regra é calculada. Esta é a régua de cobrança da Escola de Idiomas, com a conta que roda no domínio — arraste os dias e veja o valor se refazer.",
-    origem: "Regra do rodapé da tela financeira: multa de 2% + mora de R$ 1,00/dia, com teto de 30 dias.",
-    campoValor: "Mensalidade",
-    campoDias: "Dias em atraso",
-    presets: [
-      { rotulo: "R$ 85,00", valor: 85, dias: 18, nota: "o caso do print — 18 dias em atraso" },
-      { rotulo: "R$ 360,00", valor: 360, dias: 51, nota: "o caso do teto — 51 dias em atraso" },
-    ],
-    linhas: {
-      base: "mensalidade",
-      multa: "multa de 2%",
-      mora: "mora de R$ 1,00/dia",
-      total: "valor atualizado",
-    },
-    teto: "teto de 30 dias",
-    tetoAtivo: "A mora parou em 30 dias. São {dias} dias de atraso, mas o teto é regra — e a regra ganha.",
-    rodape:
-      "A mesma conta que a secretaria vê na listagem e o aluno vê no boleto. Nenhum dos dois digita o valor atualizado.",
   },
 
   stack: {
@@ -462,7 +538,7 @@ const pt: Conteudo = {
       "Respondo e-mail no mesmo dia. O currículo completo em PDF está a um clique, e o código dos quatro projetos está aberto no GitHub — inclusive o que ainda não tem deploy.",
     canais: [
       { rotulo: "E-mail", valor: "henriquemarangoni.inacio1108@gmail.com", tipo: "email" },
-      { rotulo: "LinkedIn", valor: "linkedin.com/in/henriquemarangoni", tipo: "linkedin" },
+      { rotulo: "LinkedIn", valor: "linkedin.com/in/henrique-marangoni-484845239", tipo: "linkedin" },
       { rotulo: "GitHub", valor: "github.com/R1ck-dev", tipo: "github" },
       { rotulo: "Currículo", valor: "baixar em PDF", tipo: "curriculo" },
     ],
@@ -472,10 +548,9 @@ const pt: Conteudo = {
   secoes: [
     { id: "sobre", numero: "01", titulo: "Sobre" },
     { id: "projetos", numero: "02", titulo: "Projetos" },
-    { id: "regra", numero: "03", titulo: "A regra" },
-    { id: "stack", numero: "04", titulo: "Stack" },
-    { id: "trajetoria", numero: "05", titulo: "Trajetória" },
-    { id: "contato", numero: "06", titulo: "Contato" },
+    { id: "stack", numero: "03", titulo: "Stack" },
+    { id: "trajetoria", numero: "04", titulo: "Trajetória" },
+    { id: "contato", numero: "05", titulo: "Contato" },
   ],
 };
 

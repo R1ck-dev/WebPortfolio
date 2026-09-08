@@ -1,10 +1,9 @@
-import { conteudo, type Marco } from "@/content";
+import type { Marco } from "@/content";
+import { getConteudo, getSecao } from "@/content/servidor";
 import Reveal from "./Reveal";
 import { Secao, Tag } from "./ui";
 
-const { trajetoria, ui } = conteudo;
-
-function Item({ marco, indice }: { marco: Marco; indice: number }) {
+function Item({ marco, indice, emCurso }: { marco: Marco; indice: number; emCurso: string }) {
   return (
     <Reveal as="li" delay={indice * 70} className="group relative block pb-12 pl-8 last:pb-0 md:pl-10">
       <>
@@ -18,7 +17,7 @@ function Item({ marco, indice }: { marco: Marco; indice: number }) {
 
         <p className="font-mono text-xs tracking-wide text-ink-faint">
           {marco.periodo}
-          {marco.atual && <span className="ml-3 text-accent">● {ui.emCurso}</span>}
+          {marco.atual && <span className="ml-3 text-accent">● {emCurso}</span>}
         </p>
 
         <h4 className="mt-2 font-display text-2xl leading-tight text-ink">{marco.cargo}</h4>
@@ -53,9 +52,11 @@ function Item({ marco, indice }: { marco: Marco; indice: number }) {
   );
 }
 
-export default function Trajetoria() {
+export default async function Trajetoria() {
+  const { trajetoria, ui } = await getConteudo();
+
   return (
-    <Secao id="trajetoria" numero="05" titulo="Trajetória">
+    <Secao secao={await getSecao("trajetoria")}>
       <div className="space-y-16">
         {[
           { rotulo: trajetoria.rotuloExperiencia, marcos: trajetoria.experiencia },
@@ -65,7 +66,7 @@ export default function Trajetoria() {
             <h3 className="font-mono text-xs tracking-[0.2em] text-ink-faint uppercase">{rotulo}</h3>
             <ol className="mt-8">
               {marcos.map((marco, i) => (
-                <Item key={marco.organizacao} marco={marco} indice={i} />
+                <Item key={marco.organizacao} marco={marco} indice={i} emCurso={ui.emCurso} />
               ))}
             </ol>
           </div>

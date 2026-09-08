@@ -1,11 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { conteudo } from "@/content";
+import { useEffect, useMemo, useState } from "react";
+import type { Conteudo } from "@/content";
+import IdiomaToggle from "./IdiomaToggle";
 import TemaToggle from "./TemaToggle";
 import { IconeDocumento, IconeEmail, IconeGitHub, IconeLinkedIn, Seta } from "./ui";
-
-const { perfil, secoes, ui } = conteudo;
 
 /** Linha de leitura: a altura da viewport onde se considera que a vista "está". */
 const LINHA_DE_LEITURA = 0.3;
@@ -59,10 +58,13 @@ function useSecaoAtiva(ids: string[]) {
   return ativa;
 }
 
-const IDS = secoes.map((s) => s.id);
+type Props = Pick<Conteudo, "locale" | "perfil" | "secoes" | "ui">;
 
-export default function Coluna() {
-  const ativa = useSecaoAtiva(IDS);
+export default function Coluna({ locale, perfil, secoes, ui }: Props) {
+  // Memoizado porque é a dependência do efeito de scroll: um array novo a cada render
+  // reinstalaria os listeners em toda medição.
+  const ids = useMemo(() => secoes.map((s) => s.id), [secoes]);
+  const ativa = useSecaoAtiva(ids);
 
   return (
     <header className="relative lg:sticky lg:top-0 lg:flex lg:h-screen lg:max-h-screen lg:flex-col lg:justify-between lg:py-20">
@@ -144,12 +146,14 @@ export default function Coluna() {
           <a
             href={perfil.curriculoPdf}
             download
+            aria-label={ui.baixarCurriculo}
             className="inline-flex items-center gap-2 rounded-full border border-rule px-4 py-2 font-mono text-xs tracking-wide text-ink-soft transition-colors hover:border-ink hover:text-ink"
           >
             <IconeDocumento className="size-3.5" />
             {ui.curriculo}
           </a>
-          <TemaToggle />
+          <IdiomaToggle atual={locale} rotulo={ui.trocarIdioma} />
+          <TemaToggle claro={ui.temaClaro} escuro={ui.temaEscuro} />
         </div>
 
         <ul className="mt-6 flex items-center gap-5">

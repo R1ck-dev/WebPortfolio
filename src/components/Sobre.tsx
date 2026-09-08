@@ -1,13 +1,15 @@
-import { sobre } from "@/content/portfolio";
+import { conteudo } from "@/content";
 import Reveal from "./Reveal";
 import { Numero, Secao } from "./ui";
+
+const { sobre } = conteudo;
 
 export default function Sobre() {
   return (
     <Secao id="sobre" numero="01" titulo="Sobre">
       <div className="max-w-2xl space-y-6">
         {sobre.paragrafos.map((paragrafo, i) => (
-          <Reveal key={i} delay={i * 90}>
+          <Reveal key={i} delay={i * 80}>
             <p
               className={
                 i === 0

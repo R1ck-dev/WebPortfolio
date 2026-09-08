@@ -1,6 +1,9 @@
 import type { ReactNode, SVGProps } from "react";
 
-/* --- Estrutura de seção ---------------------------------------------------- */
+/* --- Estrutura de seção ---------------------------------------------------
+   Cabeçalho editorial: o número monoespaçado, um fio fino atravessando o resto
+   da largura, e o título embaixo. O fio é o mesmo gesto de régua que a navegação
+   da coluna usa — é a repetição que dá identidade. */
 
 export function Secao({
   id,
@@ -16,29 +19,36 @@ export function Secao({
   className?: string;
 }) {
   return (
-    <section id={id} className={`border-t border-rule/70 ${className}`}>
-      <div className="mx-auto w-full max-w-6xl px-6 py-20 sm:px-10 md:py-28">
-        <div className="grid gap-10 md:grid-cols-[9rem_1fr] md:gap-14">
-          <header className="md:pt-2">
-            <p className="font-mono text-xs tracking-[0.2em] text-accent uppercase">{numero}</p>
-            <h2 className="mt-2 font-display text-3xl leading-none text-ink md:text-4xl">
-              {titulo}
-            </h2>
-            <span aria-hidden className="mt-5 hidden h-px w-16 bg-rule md:block" />
-          </header>
-          <div className="min-w-0">{children}</div>
+    <section id={id} aria-labelledby={`${id}-titulo`} className={`scroll-mt-24 py-20 md:py-28 ${className}`}>
+      <header className="mb-12">
+        <div className="flex items-center gap-4">
+          <span className="font-mono text-xs tracking-[0.2em] text-accent uppercase">{numero}</span>
+          <span aria-hidden className="h-px flex-1 bg-rule" />
         </div>
-      </div>
+        <h2
+          id={`${id}-titulo`}
+          className="mt-4 font-display text-4xl leading-none text-ink md:text-5xl"
+        >
+          {titulo}
+        </h2>
+      </header>
+      {children}
     </section>
   );
 }
 
 /* --- Etiquetas ------------------------------------------------------------- */
 
-export function Tag({ children, tone = "neutro" }: { children: ReactNode; tone?: "neutro" | "acento" }) {
+export function Tag({
+  children,
+  tone = "neutro",
+}: {
+  children: ReactNode;
+  tone?: "neutro" | "acento";
+}) {
   const cores =
     tone === "acento"
-      ? "border-accent/35 bg-accent/8 text-accent"
+      ? "border-accent/35 bg-accent/10 text-accent"
       : "border-rule bg-paper-raised text-ink-soft";
   return (
     <span
@@ -52,8 +62,10 @@ export function Tag({ children, tone = "neutro" }: { children: ReactNode; tone?:
 export function Numero({ valor, rotulo }: { valor: string; rotulo: string }) {
   return (
     <div>
-      <p className="font-display text-3xl leading-none text-accent md:text-4xl">{valor}</p>
-      <p className="mt-1.5 text-sm leading-snug text-ink-faint">{rotulo}</p>
+      <p className="font-display text-3xl leading-none text-accent tabular-nums md:text-4xl">
+        {valor}
+      </p>
+      <p className="mt-1.5 text-sm leading-snug text-ink-faint text-pretty">{rotulo}</p>
     </div>
   );
 }
@@ -121,8 +133,41 @@ export function IconeEmail(props: SVGProps<SVGSVGElement>) {
 export function IconeDocumento(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.3} aria-hidden {...props}>
-      <path d="M9 1.5H4.5A1.5 1.5 0 0 0 3 3v10a1.5 1.5 0 0 0 1.5 1.5h7A1.5 1.5 0 0 0 13 13V5.5L9 1.5Z" strokeLinejoin="round" />
+      <path
+        d="M9 1.5H4.5A1.5 1.5 0 0 0 3 3v10a1.5 1.5 0 0 0 1.5 1.5h7A1.5 1.5 0 0 0 13 13V5.5L9 1.5Z"
+        strokeLinejoin="round"
+      />
       <path d="M9 1.5v4h4" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+/** Cadeado — marca o projeto que roda só localmente, sem demo pública. */
+export function IconeCadeado(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.3} aria-hidden {...props}>
+      <rect x="3.5" y="7" width="9" height="7" rx="1.5" />
+      <path d="M5.75 7V4.75a2.25 2.25 0 0 1 4.5 0V7" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export function IconeSol(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.3} aria-hidden {...props}>
+      <circle cx="8" cy="8" r="3.1" />
+      <path
+        d="M8 1.4v1.7M8 12.9v1.7M14.6 8h-1.7M3.1 8H1.4M12.67 3.33l-1.2 1.2M4.53 11.47l-1.2 1.2M12.67 12.67l-1.2-1.2M4.53 4.53l-1.2-1.2"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+export function IconeLua(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.3} aria-hidden {...props}>
+      <path d="M13.4 9.86A5.8 5.8 0 0 1 6.14 2.6a5.8 5.8 0 1 0 7.26 7.26Z" strokeLinejoin="round" />
     </svg>
   );
 }

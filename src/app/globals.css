@@ -4,7 +4,13 @@
    Design system — "papel & tinta"
    Base bege quente, tinta quase-preta, acento terracota. Editorial e sóbrio,
    com rótulos monoespaçados fazendo o papel de margem técnica.
+
+   O tema escuro é um par desenhado, não uma inversão: grafite quente (nunca
+   azulado) e o terracota puxado para brasa, porque terracota sobre preto
+   apaga. Os dois passam em WCAG AA para texto normal.
    --------------------------------------------------------------------------- */
+
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
   --color-paper: #f3efe6;
@@ -12,7 +18,7 @@
   --color-paper-deep: #e4dccb;
   --color-ink: #171512;
   --color-ink-soft: #45403a;
-  --color-ink-faint: #7d766a;
+  --color-ink-faint: #6b6458;
   --color-rule: #d6cdba;
   --color-accent: #a8401d;
   --color-accent-soft: #c96a3f;
@@ -23,6 +29,25 @@
   --font-mono: var(--font-plex-mono), ui-monospace, "SFMono-Regular", monospace;
 
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-soft: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* Fora de @layer de propósito: regra sem camada vence a camada `theme` onde o
+   @theme publica as variáveis, sem precisar de disputa de especificidade. */
+.dark {
+  --color-paper: #14110e;
+  --color-paper-raised: #1b1714;
+  --color-paper-deep: #221d19;
+  --color-ink: #ece5d8;
+  --color-ink-soft: #b0a696;
+  --color-ink-faint: #8b8274;
+  --color-rule: #332c25;
+  --color-accent: #e8814f;
+  --color-accent-soft: #f2a37a;
+  --color-moss: #7fae98;
+
+  color-scheme: dark;
 }
 
 @layer base {
@@ -56,7 +81,9 @@
   }
 }
 
-/* Textura de papel: ruído sutil por cima de tudo, sem capturar cliques. */
+/* Textura de papel: ruído sutil por cima de tudo, sem capturar cliques.
+   No claro ele escurece (multiply); no escuro precisa clarear (screen), senão
+   vira sujeira invisível em cima de quase-preto. */
 .grain::after {
   content: "";
   position: fixed;
@@ -68,16 +95,23 @@
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
 }
 
-/* Malha de linhas finas usada como fundo do hero. */
+.dark .grain::after {
+  opacity: 0.16;
+  mix-blend-mode: screen;
+}
+
+/* Malha de linhas finas usada como fundo da coluna de identidade. */
 .blueprint {
   background-image:
     linear-gradient(to right, color-mix(in srgb, var(--color-rule) 55%, transparent) 1px, transparent 1px),
     linear-gradient(to bottom, color-mix(in srgb, var(--color-rule) 55%, transparent) 1px, transparent 1px);
   background-size: 88px 88px;
-  mask-image: radial-gradient(120% 90% at 70% 0%, #000 10%, transparent 72%);
+  mask-image: radial-gradient(120% 90% at 20% 0%, #000 10%, transparent 72%);
 }
 
-/* --- Movimento ----------------------------------------------------------- */
+/* --- Movimento -----------------------------------------------------------
+   Poucas, curtas, com easing pensado. A abertura é orquestrada uma vez; o
+   resto é micro-interação no hover e revelação no scroll. */
 
 @keyframes rise {
   from {
@@ -109,12 +143,32 @@
   }
 }
 
+/* Usado quando o teto da mora entra em ação: o valor "trava" em vez de só mudar. */
+@keyframes travar {
+  0% {
+    transform: translateX(0);
+  }
+  35% {
+    transform: translateX(-3px);
+  }
+  70% {
+    transform: translateX(1.5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
 .rise {
   animation: rise 0.9s var(--ease-out-soft) both;
 }
 
 .drift {
   animation: drift 14s ease-in-out infinite;
+}
+
+.travar {
+  animation: travar 0.42s var(--ease-out-soft);
 }
 
 /* Revelação no scroll. Só esconde quando há JavaScript (classe .js no <html>): sem JS,
@@ -132,6 +186,78 @@
   transform: none;
 }
 
+/* Moldura de print. Os prints são escuros (CodeInsights, BloodCrown) e claros
+   (Escola, IFConecta) ao mesmo tempo, então a moldura acompanha o tom da imagem
+   em vez de impor o tom da página — senão um dos dois sempre briga com o fundo. */
+.moldura-escuro {
+  background-color: #0d0b14;
+  border-color: color-mix(in srgb, var(--color-rule) 70%, #0d0b14);
+}
+
+.moldura-claro {
+  background-color: #eef1f6;
+  border-color: color-mix(in srgb, var(--color-rule) 70%, #eef1f6);
+}
+
+/* Régua da seção "A regra". O input nativo continua sendo o controle — teclado, leitor de
+   tela e toque saem de graça —, só a pele é trocada. */
+.regua-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
+  width: 100%;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--color-rule);
+  cursor: ew-resize;
+}
+
+.regua-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: var(--color-accent);
+  border: 3px solid var(--color-paper-raised);
+  box-shadow: 0 0 0 1px var(--color-accent);
+  transition: transform 0.18s var(--ease-out-soft);
+}
+
+.regua-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: var(--color-accent);
+  border: 3px solid var(--color-paper-raised);
+  box-shadow: 0 0 0 1px var(--color-accent);
+  transition: transform 0.18s var(--ease-out-soft);
+}
+
+.regua-slider:hover::-webkit-slider-thumb,
+.regua-slider:focus-visible::-webkit-slider-thumb {
+  transform: scale(1.15);
+}
+
+.regua-slider:hover::-moz-range-thumb,
+.regua-slider:focus-visible::-moz-range-thumb {
+  transform: scale(1.15);
+}
+
+/* Troca de tema: transição curta, e só nas cores. Sem isso o clique no seletor
+   é um corte seco; com transição em tudo, a página inteira treme. */
+.trocando-tema,
+.trocando-tema *,
+.trocando-tema *::before,
+.trocando-tema *::after {
+  transition:
+    background-color 0.32s var(--ease-out-soft),
+    border-color 0.32s var(--ease-out-soft),
+    color 0.32s var(--ease-out-soft),
+    fill 0.32s var(--ease-out-soft),
+    stroke 0.32s var(--ease-out-soft) !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -139,6 +265,7 @@
 
   .rise,
   .drift,
+  .travar,
   [class*="animate-"] {
     animation: none !important;
   }
@@ -147,6 +274,13 @@
     opacity: 1;
     transform: none;
     transition: none;
+  }
+
+  .trocando-tema,
+  .trocando-tema *,
+  .trocando-tema *::before,
+  .trocando-tema *::after {
+    transition: none !important;
   }
 }
 

@@ -1,18 +1,17 @@
-import { habilidades, idiomas } from "@/content/portfolio";
+import { conteudo } from "@/content";
 import Reveal from "./Reveal";
 import { Secao } from "./ui";
 
+const { stack } = conteudo;
+
 export default function Stack() {
   return (
-    <Secao id="stack" numero="03" titulo="Stack">
-      <p className="max-w-2xl text-base leading-relaxed text-ink-soft text-pretty">
-        O que uso no dia a dia, agrupado por camada. A ordem dentro de cada grupo é a do peso real na
-        minha prática, não a do currículo.
-      </p>
+    <Secao id="stack" numero="04" titulo="Stack">
+      <p className="max-w-2xl text-base leading-relaxed text-ink-soft text-pretty">{stack.intro}</p>
 
-      <dl className="mt-12 space-y-px overflow-hidden rounded-sm border border-rule bg-rule/60">
-        {habilidades.map((grupo, i) => (
-          <Reveal key={grupo.grupo} delay={i * 60}>
+      <dl className="mt-12 space-y-px overflow-hidden rounded-sm border border-rule bg-rule">
+        {stack.grupos.map((grupo, i) => (
+          <Reveal key={grupo.grupo} delay={i * 50}>
             <div className="grid gap-3 bg-paper px-5 py-6 sm:grid-cols-[9rem_1fr] sm:gap-6 sm:px-7">
               <dt className="font-mono text-xs tracking-[0.16em] text-accent uppercase sm:pt-1">
                 {grupo.grupo}
@@ -34,7 +33,7 @@ export default function Stack() {
 
       <Reveal delay={80}>
         <div className="mt-8 flex flex-wrap gap-x-8 gap-y-2 font-mono text-xs text-ink-faint">
-          {idiomas.map((idioma) => (
+          {stack.idiomas.map((idioma) => (
             <p key={idioma.idioma}>
               {idioma.idioma}
               <span className="text-rule"> — </span>

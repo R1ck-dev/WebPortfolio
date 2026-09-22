@@ -494,7 +494,7 @@ const en: Conteudo = {
         tags: ["Embedded", "C", "Electronics", "Hardware debugging"],
       },
       {
-        periodo: "May 2026 — Aug 2026",
+        periodo: "Jun 2026 — Aug 2026",
         cargo: "Software Development Intern",
         organizacao:
           "SVSA — Social Assistance Surveillance System (IFSP Salto / social services department of Salto-SP)",

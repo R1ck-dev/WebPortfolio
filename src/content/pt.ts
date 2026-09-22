@@ -491,7 +491,7 @@ const pt: Conteudo = {
         tags: ["Embarcados", "C", "Eletrônica", "Depuração de hardware"],
       },
       {
-        periodo: "mai/2026 — ago/2026",
+        periodo: "jun/2026 — ago/2026",
         cargo: "Estagiário de Desenvolvimento de Software",
         organizacao:
           "SVSA — Sistema de Vigilância SocioAssistencial (IFSP Salto / SASC — Prefeitura de Salto-SP)",
